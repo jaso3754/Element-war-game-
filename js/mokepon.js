@@ -9,7 +9,7 @@ function iniciarJuego(){
     sectionSeleccionarAtaque.style.display = "none"
 
     let sectionReiniciar = document.getElementById("reiniciar")
-    sectionReiniciar.style.display = "none"
+    sectionReiniciar.style.display = "block"
 
     let botonMascotaJugador = document.getElementById("boton-mascota")
     botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador)
@@ -33,7 +33,7 @@ function seleccionarMascotaJugador() {
 
     let sectionSeleccionarAtaque
     sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque")
-    sectionSeleccionarAtaque.style.display = "block"
+    sectionSeleccionarAtaque.style.display = "flex"
 
     let inputHipodoge = document.getElementById("Hipodoge")
     let inputCalipepo = document.getElementById("Calipepo")
@@ -138,21 +138,31 @@ function revisarVidas(){
 } 
 
 function crearMensaje(resultado){
-    let sectionMensajes = document.getElementById("mensajes")
+    let sectionMensajes = document.getElementById("resultado")
+    let ataquesDelJugador = document.getElementById("ataques-del-jugador")
+    let ataquesDelEnemigo= document.getElementById("ataques-del-enemigo")
 
-    let parrafo = document.createElement("p")
-    parrafo.innerHTML = "tu mascota ataco con " + ataqueJugador + ", la mascota del enemigo ataco con  " + ataqueEnemigo + "- " + resultado
-
-    sectionMensajes.appendChild(parrafo)
+    let notificacion = document.createElement("p")
+    let nuevoAtaqueDelJugador = document.createElement("p")
+    let nuevoAtaqueDeEnemigo = document.createElement("p")
+    
+    notificacion.innerHTML = resultado
+    nuevoAtaqueDelJugador.innerHTML = ataqueJugador
+    nuevoAtaqueDeEnemigo.innerHTML = ataqueEnemigo
+  
+    // sectionMensajes.appendChild(notificacion)
+    ataquesDelJugador.appendChild(nuevoAtaqueDelJugador)
+    ataquesDelEnemigo.appendChild(nuevoAtaqueDeEnemigo)
+    
 }
 
 function crearMensajeFinal(resultadoFinal){
-    let sectionMensajes = document.getElementById("mensajes")
+    let sectionMensajes = document.getElementById("resultado")
 
-    let parrafo = document.createElement("p")
-    parrafo.innerHTML = resultadoFinal
+    // let parrafo = document.createElement("p")
+    sectionMensajes.innerHTML = resultadoFinal
 
-    sectionMensajes.appendChild(parrafo)
+   // sectionMensajes.appendChild(parrafo)
 
     let botonFuego = document.getElementById("boton-fuego")
     botonFuego.disabled = true

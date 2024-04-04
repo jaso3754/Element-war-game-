@@ -1,5 +1,29 @@
 body {
-    
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    background-color: #373A6D;
+   /*grid*/
+   /* display: grid;
+   gap: 1rem;
+   grid-auto-flow: dense;
+   grid-auto-rows: 22rem;
+   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    */
+}
+
+
+
+
+
+
+#principal{
+    min-width: 100vh;
+    background-image: url(img/Paisajes-de-Fantasia-Wallpapers-11.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 
@@ -13,43 +37,120 @@ body {
 
 .titulo {
     color: white;
+    font-size: 32px;
+    font-family: "Lobster Two", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    
     
         
 }
 
 .subtitulo {
-
+    color:aliceblue;
+    font-size: 20px;
 
 
 }
 
-.tarjetas{
+.name-mascota{
     display: flex;
-    gap:10px;
+    margin-block-start: -1em;
+    margin-block-end: 1em;
+    margin-inline-start: 37px;
+    margin-inline-end: -102px;
+}
+
+.tarjetas{
+     /* grids */
+    display: grid;
+    grid-auto-rows: 22rem;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 20px; 
+
 
 }
 
 .tarjeta-de-mokepon {
-    width: 100px;
-    height: 100px;
-    background: aquamarine;
-    padding: 10px;
+    width: 211px;
+    height: 211px;
+    background: linear-gradient(45deg, black, transparent);
+    padding: 18px;
     box-sizing: border-box;
-    margin: 10px;
-    border: 1px solid hotpink;
+    margin: 7px;
+    border: 1px solid rgb(8, 8, 8);
+    border-color: antiquewhite;
+    border-radius: 20px;
+    color:white;
 }
+   
+
+
+.tarjeta-de-mokepon img {
+    display: flex;
+    width: 173px;
+    height: 152px;
+    margin-block: auto;
+}
+    
+
+ 
 
 #boton-mascota{
 
-    background: rebeccapurple;
-    width: 100px;
-    height: 30px;
-    box-sizing: border-box;
-    margin: 10px;
-    padding: 5px;
-    border: 1px solid black;
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    margin-top: 30px;
 }
+
 
 input {
     display: none;
+}
+
+#seleccionar-ataque {
+    
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.boton-de-ataque {
+    
+    background: linear-gradient(45deg, black, transparent);
+    padding: 18px;
+    box-sizing: border-box;
+    margin: 7px;
+    border-color: antiquewhite;
+    border-radius: 20px;
+    color: white;
+    font-family: "Poppins", sans-serif;
+}
+
+#mensajes{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+    width: 180px;
+    background: repeating-linear-gradient(45deg, black, transparent 100px);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    flex-direction: column;
+
+}
+#boton-reiniciar {
+    border: none;
+    color:c ;
+    font-family: "Poppins", sans-serif;
+    background:unset;
 }
