@@ -61,14 +61,17 @@ body {
     margin-inline-end: -102px;
 }
 
-.tarjetas{
+.tarjetas, .tarjetas-ataques {
+
+    display: flex;
+    gap:10px;
+
      /* grids */
-    display: grid;
+    /* display: grid;
     grid-auto-rows: 22rem;
     grid-auto-flow: column;
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-    gap: 20px; 
-
+    gap: 20px;  */
 
 }
 
@@ -116,6 +119,11 @@ input {
     display: none;
 }
 
+input:checked + label {
+    background-color: red;
+
+}
+
 #seleccionar-ataque {
     
     flex-direction: column;
@@ -148,9 +156,32 @@ input {
     flex-direction: column;
 
 }
+
 #boton-reiniciar {
     border: none;
-    color:c ;
+    color:black ;
     font-family: "Poppins", sans-serif;
     background:unset;
+}
+
+.ataques {
+    display: grid;
+    grid-template-columns: 100px 100px;
+}
+
+#vidas-jugador, #vidas-enemigo {
+    font-size: 32px;
+    margin-bottom: 0;
+}
+
+.ataques-jugador, .ataques-enemigo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-width: 360px){
+    .tarjetas, .tarjetas-ataques {
+        flex-direction: column;
+    }
 }

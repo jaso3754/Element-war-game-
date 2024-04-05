@@ -18,42 +18,42 @@
             <h2 class ="subtitulo"> Elige tu mascota: </h2>
 
             <div class="tarjetas">
-
+                <input type="radio" name="mascota" id="Hipodoge"/>
                 <label class= "tarjeta-de-mokepon" for="Hipodoge"> 
                     <p class="name-mascota">Hipodoge</p>
                     <img src="img/hipodoge.webp" alt="">
                 </label>
-                <input type="radio" name="mascota" id="Hipodoge"/>
-
+                
+                <input type="radio" name="mascota" id="Calipepo"/>
                 <label class= "tarjeta-de-mokepon" for="Calipepo">
                     <p class="name-mascota">Calipepo</p>
                     <img src="img/capipepo.webp" alt="">
                 </label>
-                <input type="radio" name="mascota" id="Calipepo"/>
-
+                
+                <input type="radio" name="mascota" id="Ratigueya"/>
                 <label class= "tarjeta-de-mokepon" for="Ratigueya"> 
                     <p class="name-mascota">Ratigueya</p>
                     <img src="img/ratigueya.webp" alt=""/> 
                 </label>
-                <input type="radio" name="mascota" id="Ratigueya"/>
-
+               
+                <input type="radio" name="mascota" id="Langostelvis"/>
                 <label class= "tarjeta-de-mokepon" for="Langostelvis"> 
                     <p class="name-mascota">Langostelvis</p>
                     <img src="img/langostelvis.png" alt=""/>
                  </label>
-                <input type="radio" name="ataques" id="Langostelvis"/>
-
+                
+                 <input type="radio" name="mascota" id="Tucapalma"/>
                 <label class= "tarjeta-de-mokepon" for="Tucapalma">
                     <p class="name-mascota">Tucapalma</p>
                     <img src="img/tucapalma.png" alt=""/> 
                  </label>
-                <input type="radio" name="mascota" id="Tucapalma"/>
                 
+                <input type="radio" name="mascota" id="Pydos"/>
                 <label class= "tarjeta-de-mokepon" for="Pydos"> 
                     <p class="name-mascota">Pydos </p>
                     <img src="img/pydos.webp" alt=""/>
                 </label>
-                <input type="radio" name="mascota" id="Pydos"/>
+                
 
             </div>
 
@@ -70,7 +70,7 @@
 
             <h2 class ="subtitulo"> Elige tu ataque:</h2>
 
-            <div>
+            <div class="tarjetas-ataques">
                 <button id="boton-fuego" class="boton-de-ataque"> fuego🔥</button>
                 <button id="boton-agua" class="boton-de-ataque"> agua 💧</button>
                 <button id="boton-tierra" class="boton-de-ataque"> tierra ☘️ </button>
@@ -85,15 +85,23 @@
                 
             </div>
 
-            <div>
-                <div id="ataques-del-jugador"></div>
-                <div id="ataques-del-enemigo"></div>
-                <p> tu mascota <span id="mascota-jugador"> </span>tiene <span id="vidas-jugador">3</span> vidas </p>
-                <p> la mascota <span id="mascota-enemigo"> </span> del enemigo tiene <span id="vidas-enemigo">3</span> vidas </p>
-            </div>
+            <div class="ataques">
+                <div class="ataques-jugador">
+                    <p id="vidas-jugador">3</p>
+                    <p id="mascota-jugador"> </p>
+                    <div id="ataques-del-jugador"></div>
+                </div>
+
+                <div class="ataques-enemigo">
+                    <p id="vidas-enemigo">3</p>
+                    <p id="mascota-enemigo"> </p>
+                    <div id="ataques-del-enemigo"></div>
+                </div>
+                
+            </div>  
         </section>
 
-        
 
+        
     </body>
 </html>
