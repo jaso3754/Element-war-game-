@@ -25,16 +25,71 @@ const sectionMensajes = document.getElementById("resultado")
 const ataquesDelJugador = document.getElementById("ataques-del-jugador")
 const ataquesDelEnemigo= document.getElementById("ataques-del-enemigo")
 
+let mokepones =[]
 let ataqueJugador 
 let ataqueEnemigo
+let opcionDeMokepones
 let vidasJugador = 3
 let vidasEnemigo = 3
+
+class Mokepon{
+    constructor(nombre, foto, vida) {
+        this.nombre = nombre
+        this.foto = foto
+        this.vida = vida
+        this.ataques = []
+    }
+}
+// estos objetos se instancian desde una clase (Mokepon).
+let Hipodoge = new Mokepon('Hipodoge', 'img/hipodoge.webp', 5)
+
+let Calipepo = new Mokepon('Calipepo', 'img/capipepo.webp', 5)
+
+let Ratigueya = new Mokepon('Ratigueya', 'img/ratigueya.webp', 5)
+
+// Pero los objetos literarios debo contruirlos desde cero y no tengo clases para poderlo hacer, estos solo van a guardar informacion.
+Hipodoge.ataques.push(
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '☘️', id: 'boton-tierra'},
+)
+
+Calipepo.ataques.push(
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '💧', id: 'boton-agua'},
+)
+
+Ratigueya.ataques.push(
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '💧', id: 'boton-agua'},
+)
+
+mokepones.push(Hipodoge,Calipepo,Ratigueya)
+
 
 function iniciarJuego(){
    
     sectionSeleccionarAtaque.style.display = "none"
-    
-    
+
+// metodo de iteracion (forEach)
+    mokepones.forEach((mokepon) => {
+        opcionDeMokepones = `
+        <input type="radio" name="mascota" id=${mokepon.nombre}/>
+        <label class= "tarjeta-de-mokepon" for=${mokepon.nombre}> 
+            <p class="name-mascota">${mokepon.nombre}</p>
+            <img src=${mokepon.foto} alt=${mokepon.nombre}>
+        </label>
+        `  //templates literarios debe ser con comilla invertida.
+        
+    })
 
     botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador)
     
