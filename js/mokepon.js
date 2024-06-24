@@ -24,6 +24,7 @@ const spanVidasEnemigo = document.getElementById("vidas-enemigo")
 const sectionMensajes = document.getElementById("resultado")
 const ataquesDelJugador = document.getElementById("ataques-del-jugador")
 const ataquesDelEnemigo= document.getElementById("ataques-del-enemigo")
+const contenedorTarjetas =document.getElementById('contenedorTarjetas')
 
 let mokepones =[]
 let ataqueJugador 
@@ -46,6 +47,15 @@ let Hipodoge = new Mokepon('Hipodoge', 'img/hipodoge.webp', 5)
 let Calipepo = new Mokepon('Calipepo', 'img/capipepo.webp', 5)
 
 let Ratigueya = new Mokepon('Ratigueya', 'img/ratigueya.webp', 5)
+
+let Langostelvis = new Mokepon('Langostelvis', 'img/langostelvis.png', 5)
+
+let Tucapalma = new Mokepon('Tucapalma', 'img/tucapalma.png', 5)
+
+let Pydos = new Mokepon('Pydos', 'img/pydos.webp', 5)
+
+
+
 
 // Pero los objetos literarios debo contruirlos desde cero y no tengo clases para poderlo hacer, estos solo van a guardar informacion.
 Hipodoge.ataques.push(
@@ -72,7 +82,33 @@ Ratigueya.ataques.push(
     { nombre: '💧', id: 'boton-agua'},
 )
 
-mokepones.push(Hipodoge,Calipepo,Ratigueya)
+Langostelvis.ataques.push(
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '☘️', id: 'boton-tierra'},
+)
+
+Tucapalma.ataques.push(
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '💧', id: 'boton-agua'},
+)
+
+Pydos.ataques.push(
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '💧', id: 'boton-agua'},
+)
+
+
+
+mokepones.push(Hipodoge,Calipepo,Ratigueya,Langostelvis,Tucapalma,Pydos)
 
 
 function iniciarJuego(){
@@ -88,7 +124,7 @@ function iniciarJuego(){
             <img src=${mokepon.foto} alt=${mokepon.nombre}>
         </label>
         `  //templates literarios debe ser con comilla invertida.
-        
+contenedorTarjetas.innerHTML += opcionDeMokepones
     })
 
     botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador)
