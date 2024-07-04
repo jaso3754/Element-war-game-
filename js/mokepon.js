@@ -8,12 +8,7 @@ const botonTierra = document.getElementById("boton-tierra")
 const botonReiniciar = document.getElementById("reiniciar")
 
 const sectionSeleccionarMascota = document.getElementById("seleccionar-mascota")
-const inputHipodoge = document.getElementById("Hipodoge")
-const inputCalipepo = document.getElementById("Calipepo")
-const inputRatigueya = document.getElementById("Ratigueya")
-const inputLangostelvis = document.getElementById("Langostelvis")
-const inputTucapalma = document.getElementById("Tucapalma")
-const inputPydos = document.getElementById("Pydos")
+
 const spanMascotaJugador = document.getElementById("mascota-jugador")
 
 const spanMascotaEnemigo = document.getElementById("mascota-enemigo")
@@ -30,6 +25,12 @@ let mokepones =[]
 let ataqueJugador 
 let ataqueEnemigo
 let opcionDeMokepones
+let inputHipodoge 
+let inputCalipepo 
+let inputRatigueya 
+let inputLangostelvis 
+let inputTucapalma 
+let inputPydos 
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -118,13 +119,21 @@ function iniciarJuego(){
 // metodo de iteracion (forEach)
     mokepones.forEach((mokepon) => {
         opcionDeMokepones = `
-        <input type="radio" name="mascota" id=${mokepon.nombre}/>
+        <input type="radio" name="mascota" id=${mokepon.nombre} />
         <label class= "tarjeta-de-mokepon" for=${mokepon.nombre}> 
             <p class="name-mascota">${mokepon.nombre}</p>
             <img src=${mokepon.foto} alt=${mokepon.nombre}>
         </label>
         `  //templates literarios debe ser con comilla invertida.
-contenedorTarjetas.innerHTML += opcionDeMokepones
+    contenedorTarjetas.innerHTML += opcionDeMokepones
+
+        inputHipodoge = document.getElementById('Hipodoge')
+        inputCalipepo = document.getElementById("Calipepo")
+        inputRatigueya = document.getElementById("Ratigueya")
+        inputLangostelvis = document.getElementById("Langostelvis")
+        inputTucapalma = document.getElementById("Tucapalma")
+        inputPydos = document.getElementById("Pydos")
+
     })
 
     botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador)
@@ -137,34 +146,31 @@ contenedorTarjetas.innerHTML += opcionDeMokepones
 
     botonReiniciar.addEventListener("click",reiniciarJuego)
 }
-function seleccionarMascotaJugador() {
-    
 
+function seleccionarMascotaJugador() {
     
     sectionSeleccionarMascota.style.display = "none"
 
     sectionSeleccionarAtaque.style.display = "flex"
 
 
-    
-
     if (inputHipodoge.checked){
-        spanMascotaJugador.innerHTML = "Hipodoge "
+        spanMascotaJugador.innerHTML = inputHipodoge.id
 
     } else if (inputCalipepo.checked) { 
-        spanMascotaJugador.innerHTML = "Calipepo "
+        spanMascotaJugador.innerHTML = inputCalipepo.id
         
     }  else if (inputRatigueya.checked) { 
-        spanMascotaJugador.innerHTML = "Ratigueya "
+        spanMascotaJugador.innerHTML = inputRatigueya.id
 
     }  else if (inputLangostelvis.checked) { 
-        spanMascotaJugador.innerHTML = "Langostelvis "
+        spanMascotaJugador.innerHTML = inputLangostelvis.id
 
     }  else if (inputTucapalma.checked) { 
-        spanMascotaJugador.innerHTML = "Tucapalma "
+        spanMascotaJugador.innerHTML = inputTucapalma.id
 
     }  else if (inputPydos.checked) { 
-        spanMascotaJugador.innerHTML = "Pydos "
+        spanMascotaJugador.innerHTML = inputPydos.id
 
     } else {
         alert=("selecciona una mascota")
@@ -175,30 +181,10 @@ function seleccionarMascotaJugador() {
 }
 
 function seleccionarMascotaEnemigo(){
-    let mascotaAleatorio = aleatorio(1,6)
+    let mascotaAleatorio = aleatorio(0,mokepones.length -1)
     
-
-    if (mascotaAleatorio == 1){
-        spanMascotaEnemigo.innerHTML = "Hipodoge"
-        
-    } else if (mascotaAleatorio == 2){
-        spanMascotaEnemigo.innerHTML = "Calipepo"
-
-    } else if (mascotaAleatorio == 3){
-        spanMascotaEnemigo.innerHTML = "Ratigueya"
-
-    } else if (mascotaAleatorio == 4){
-        spanMascotaEnemigo.innerHTML = "Langostelvis"
-
-    } else if (mascotaAleatorio == 5){
-        spanMascotaEnemigo.innerHTML = "Tucapalma"
-
-    } else {
-        spanMascotaEnemigo.innerHTML = "Pydos"
-        
-    }
-     
-
+    spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatorio].nombre
+   
 }
 
 function ataqueFuego (){
