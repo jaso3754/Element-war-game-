@@ -20,6 +20,9 @@ const ataquesDelEnemigo= document.getElementById("ataques-del-enemigo")
 const contenedorTarjetas =document.getElementById('contenedorTarjetas')
 const contenedorAtaques = document.getElementById("contenedorAtaques")
 
+const sectionVerMapa = document.getElementById("ver-mapa")
+const mapa = document.getElementById("mapa")
+
 let mokepones =[]
 let ataqueJugador = []
 let ataqueEnemigo = []
@@ -31,6 +34,7 @@ let inputLangostelvis
 let inputTucapalma 
 let inputPydos 
 let mascotaJugador
+let mascotaJugadorObjeto
 let ataquesMokepon
 let ataquesMokeponEnemigo
 let botonFuego 
@@ -44,27 +48,63 @@ let victoriasJugador = 0
 let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
+let lienzo = mapa.getContext("2d")
+let intervalo
+let mapaBackground = new Image()
+mapaBackground.src = "./img/4elements.png"
+
 
 class Mokepon{
-    constructor(nombre, foto, vida) {
+    constructor(nombre, foto, vida, fotoMapa, x = 10, y = 10 ) {
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
+        this.x = x
+        this.y = y
+        this.ancho = 80
+        this.alto = 80
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = fotoMapa
+        this.velocidadX = 0
+        this.velocidadY = 0
     }
+     pintarMokepon(){
+        lienzo.drawImage(
+            this.mapaFoto,
+            this.x, // pocision x
+            this.y, // pocision y
+            this.ancho, // ancho
+            this.alto, // alto
+        )
+     }
+    
 }
+
 // estos objetos se instancian desde una clase (Mokepon).
-let Hipodoge = new Mokepon('Hipodoge', 'img/hipodoge.webp', 5)
+let Hipodoge = new Mokepon('Hipodoge', 'img/hipodoge.webp', 5, "./img/hipodogeFm.png")
 
-let Calipepo = new Mokepon('Calipepo', 'img/capipepo.webp', 5)
+let Calipepo = new Mokepon('Calipepo', 'img/calipepo.webp', 5, "./img/calipepoFm.png")
 
-let Ratigueya = new Mokepon('Ratigueya', 'img/ratigueya.webp', 5)
+let Ratigueya = new Mokepon('Ratigueya', 'img/ratigueya.webp', 5, "./img/ratigueyaFm.png")
 
-let Langostelvis = new Mokepon('Langostelvis', 'img/langostelvis.png', 5)
+let Langostelvis = new Mokepon('Langostelvis', 'img/langostelvis.png', 5, "./img/langostelvisFm.png")
 
-let Tucapalma = new Mokepon('Tucapalma', 'img/tucapalma.png', 5)
+let Tucapalma = new Mokepon('Tucapalma', 'img/tucapalma.png', 5, "./img/tucapalmaFm.png")
 
-let Pydos = new Mokepon('Pydos', 'img/pydos.webp', 5)
+let Pydos = new Mokepon('Pydos', 'img/pydos.webp', 5, "./img/pydosFm.png")
+
+let HipodogeEnemigo = new Mokepon('Hipodoge', 'img/hipodoge.webp', 5, "./img/hipodogeFm.png",80, 120 )
+
+let CalipepoEnemigo = new Mokepon('Calipepo', 'img/calipepo.webp', 5, "./img/calipepoFm.png", 150, 125)
+
+let RatigueyaEnemigo = new Mokepon('Ratigueya', 'img/ratigueya.webp', 5, "./img/ratigueyaFm.png", 200, 190)
+
+let LangostelvisEnemigo = new Mokepon('Langostelvis', 'img/langostelvis.png', 5, "./img/langostelvisFm.png", 250, 145)
+
+let TucapalmaEnemigo = new Mokepon('Tucapalma', 'img/tucapalma.png', 5, "./img/tucapalmaFm.png", 60, 140)
+
+let PydosEnemigo = new Mokepon('Pydos', 'img/pydos.webp', 5, "./img/pydosFm.png", 190, 200)
 
 
 
@@ -126,6 +166,7 @@ mokepones.push(Hipodoge,Calipepo,Ratigueya,Langostelvis,Tucapalma,Pydos)
 function iniciarJuego(){
    
     sectionSeleccionarAtaque.style.display = "none"
+    sectionVerMapa.style.display = "none"
 
 // metodo de iteracion (forEach)
     mokepones.forEach((mokepon) => {
@@ -155,9 +196,9 @@ function seleccionarMascotaJugador() {
     
     sectionSeleccionarMascota.style.display = "none"
 
-    sectionSeleccionarAtaque.style.display = "flex"
-
-
+    // sectionSeleccionarAtaque.style.display = "flex"
+  
+    
     if (inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id
         mascotaJugador = inputHipodoge.id
@@ -181,6 +222,8 @@ function seleccionarMascotaJugador() {
     }
 
     extraerAtaques(mascotaJugador)
+    sectionVerMapa.style.display = "flex"
+    iniciarMapa()
     seleccionarMascotaEnemigo()
         
 }
@@ -357,5 +400,90 @@ function reiniciarJuego(){
 
 function aleatorio(min, max){
     return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+    // la function fillRect lo que hace es crear un rectangulo dentro de canvas.
+    // lienzo.fillRect(5, 15, 20, 40,)
+    //lienzo.drawImage = para cargar imagen dentro de canvas.
+    
+function pintarCanvas() {
+
+    mascotaJugadorObjeto.x= mascotaJugadorObjeto.x + mascotaJugadorObjeto.velocidadX
+    mascotaJugadorObjeto.y= mascotaJugadorObjeto.y + mascotaJugadorObjeto.velocidadY
+    lienzo.clearRect(0, 0, mapa.width, mapa.height) // esta funcion limpia nuestro canvas.
+    lienzo.drawImage(
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height,
+    )
+    mascotaJugadorObjeto.pintarMokepon()
+    HipodogeEnemigo.pintarMokepon()
+    CalipepoEnemigo.pintarMokepon()
+    RatigueyaEnemigo.pintarMokepon()
+    LangostelvisEnemigo.pintarMokepon()
+
+}
+
+function moverDerecha() {
+    mascotaJugadorObjeto.velocidadX = 5
+}
+function moverIzquierda() {
+    mascotaJugadorObjeto.velocidadX = -5
+    
+}
+function moverAbajo() {
+mascotaJugadorObjeto.velocidadY = 5
+    
+}
+function moverArriba() {
+    mascotaJugadorObjeto.velocidadY = - 5
+   
+}
+
+function detenerMovimiento(){
+  mascotaJugadorObjeto.velocidadX = 0
+  mascotaJugadorObjeto.velocidadY = 0
+}
+
+function sePresionoUnaTecla(event) {
+    // EL SWITCH CASE ES una manera de hacer varios condicionales if juntos.
+    switch (event.key) {    
+        case "ArrowUp":
+            moverArriba()
+            break
+        case "ArrowDown":
+            moverAbajo()
+            break
+        case "ArrowLeft":
+            moverIzquierda()
+            break
+        case "ArrowRight":
+            moverDerecha()
+            break
+        default:
+            break
+    }
+}
+
+function iniciarMapa () {
+    mapa.width = 320
+    mapa.height = 240
+    mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
+    intervalo = setInterval(pintarCanvas, 50)
+
+    window.addEventListener("keydown", sePresionoUnaTecla )// el evento "keydown" se escucha cuando de presiona una tecla.
+    window.addEventListener("keyup", detenerMovimiento )
+
+}
+
+function obtenerObjetoMascota() {
+    for (let i = 0; i < mokepones.length; i++) {
+        if (mascotaJugador === mokepones[i].nombre) {
+            return mokepones[i]
+        }
+        
+    }
 }
 window.addEventListener("load", iniciarJuego)
