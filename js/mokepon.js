@@ -52,18 +52,30 @@ let lienzo = mapa.getContext("2d")
 let intervalo
 let mapaBackground = new Image()
 mapaBackground.src = "./img/4elements.png"
+let alturaQueBuscamos
+let anchoDelMapa = window.innerWidth - 20
+const anchoMaximoDelMapa = 450
+
+if(anchoDelMapa > anchoMaximoDelMapa){
+    anchoDelMapa = anchoMaximoDelMapa - 20
+}
+
+alturaQueBuscamos = anchoDelMapa * 600 / 800
+
+mapa.width = anchoDelMapa
+mapa.height = alturaQueBuscamos
 
 
 class Mokepon{
-    constructor(nombre, foto, vida, fotoMapa, x = 10, y = 10 ) {
+    constructor(nombre, foto, vida, fotoMapa ) {
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
-        this.x = x
-        this.y = y
-        this.ancho = 80
-        this.alto = 80
+        this.ancho = 60
+        this.alto = 60
+        this.x = aleatorio(0, mapa.width - this.ancho)
+        this.y = aleatorio(0, mapa.height - this.alto)
         this.mapaFoto = new Image()
         this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
@@ -94,23 +106,31 @@ let Tucapalma = new Mokepon('Tucapalma', 'img/tucapalma.png', 5, "./img/tucapalm
 
 let Pydos = new Mokepon('Pydos', 'img/pydos.webp', 5, "./img/pydosFm.png")
 
-let HipodogeEnemigo = new Mokepon('Hipodoge', 'img/hipodoge.webp', 5, "./img/hipodogeFm.png",80, 120 )
+let HipodogeEnemigo = new Mokepon('Hipodoge', 'img/hipodoge.webp', 5, "./img/hipodogeFm.png")
 
-let CalipepoEnemigo = new Mokepon('Calipepo', 'img/calipepo.webp', 5, "./img/calipepoFm.png", 150, 125)
+let CalipepoEnemigo = new Mokepon('Calipepo', 'img/calipepo.webp', 5, "./img/calipepoFm.png")
 
-let RatigueyaEnemigo = new Mokepon('Ratigueya', 'img/ratigueya.webp', 5, "./img/ratigueyaFm.png", 200, 190)
+let RatigueyaEnemigo = new Mokepon('Ratigueya', 'img/ratigueya.webp', 5, "./img/ratigueyaFm.png")
 
-let LangostelvisEnemigo = new Mokepon('Langostelvis', 'img/langostelvis.png', 5, "./img/langostelvisFm.png", 250, 145)
+let LangostelvisEnemigo = new Mokepon('Langostelvis', 'img/langostelvis.png', 5, "./img/langostelvisFm.png")
 
-let TucapalmaEnemigo = new Mokepon('Tucapalma', 'img/tucapalma.png', 5, "./img/tucapalmaFm.png", 60, 140)
+let TucapalmaEnemigo = new Mokepon('Tucapalma', 'img/tucapalma.png', 5, "./img/tucapalmaFm.png")
 
-let PydosEnemigo = new Mokepon('Pydos', 'img/pydos.webp', 5, "./img/pydosFm.png", 190, 200)
+let PydosEnemigo = new Mokepon('Pydos', 'img/pydos.webp', 5, "./img/pydosFm.png")
 
 
 
 
 // Pero los objetos literarios debo contruirlos desde cero y no tengo clases para poderlo hacer, estos solo van a guardar informacion.
 Hipodoge.ataques.push(
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '☘️', id: 'boton-tierra'},
+)
+
+HipodogeEnemigo.ataques.push(
     { nombre: '💧', id: 'boton-agua'},
     { nombre: '💧', id: 'boton-agua'},
     { nombre: '💧', id: 'boton-agua'},
@@ -126,7 +146,23 @@ Calipepo.ataques.push(
     { nombre: '💧', id: 'boton-agua'},
 )
 
+CalipepoEnemigo.ataques.push(
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '💧', id: 'boton-agua'},
+)
+
 Ratigueya.ataques.push(
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '💧', id: 'boton-agua'},
+)
+
+RatigueyaEnemigo.ataques.push(
     { nombre: '🔥', id: 'boton-fuego'},
     { nombre: '🔥', id: 'boton-fuego'},
     { nombre: '🔥', id: 'boton-fuego'},
@@ -142,6 +178,14 @@ Langostelvis.ataques.push(
     { nombre: '☘️', id: 'boton-tierra'},
 )
 
+LangostelvisEnemigo.ataques.push(
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '💧', id: 'boton-agua'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '☘️', id: 'boton-tierra'},
+)
+
 Tucapalma.ataques.push(
     { nombre: '☘️', id: 'boton-tierra'},
     { nombre: '☘️', id: 'boton-tierra'},
@@ -150,7 +194,23 @@ Tucapalma.ataques.push(
     { nombre: '💧', id: 'boton-agua'},
 )
 
+TucapalmaEnemigo.ataques.push(
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '💧', id: 'boton-agua'},
+)
+
 Pydos.ataques.push(
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '🔥', id: 'boton-fuego'},
+    { nombre: '☘️', id: 'boton-tierra'},
+    { nombre: '💧', id: 'boton-agua'},
+)
+
+PydosEnemigo.ataques.push(
     { nombre: '🔥', id: 'boton-fuego'},
     { nombre: '🔥', id: 'boton-fuego'},
     { nombre: '🔥', id: 'boton-fuego'},
@@ -196,9 +256,6 @@ function seleccionarMascotaJugador() {
     
     sectionSeleccionarMascota.style.display = "none"
 
-    // sectionSeleccionarAtaque.style.display = "flex"
-  
-    
     if (inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id
         mascotaJugador = inputHipodoge.id
@@ -224,8 +281,7 @@ function seleccionarMascotaJugador() {
     extraerAtaques(mascotaJugador)
     sectionVerMapa.style.display = "flex"
     iniciarMapa()
-    seleccionarMascotaEnemigo()
-        
+         
 }
 
 function extraerAtaques(mascotaJugador){
@@ -245,7 +301,7 @@ function mostrarAtaques (ataques) {
         ataquesMokepon = `
         <button class="boton-de-ataque BAtaque" id=${ataque.id}>${ataque.nombre}</button>
         `
-        contenedorAtaques.innerHTML+= ataquesMokepon
+        contenedorAtaques.innerHTML += ataquesMokepon
     })
 
      botonFuego= document.getElementById("boton-fuego")
@@ -286,17 +342,18 @@ function secuenciaAtaque() {
     
 }
 
-function seleccionarMascotaEnemigo(){
-    let mascotaAleatorio = aleatorio(0,mokepones.length -1)
-    
-    spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatorio].nombre
-    ataquesMokeponEnemigo = mokepones[mascotaAleatorio].ataques
+function seleccionarMascotaEnemigo(enemigo){
+
+    spanMascotaEnemigo.innerHTML = enemigo.nombre
+    ataquesMokeponEnemigo = enemigo.ataques
     secuenciaAtaque()
+
 }
 
 
 function ataqueAleatorioEnemigo(){
-    let ataqueAleatorio = aleatorio(0, ataquesMokeponEnemigo.length -1,)
+    console.log("Ataques enemigo", ataquesMokeponEnemigo);
+    let ataqueAleatorio = aleatorio(0, ataquesMokeponEnemigo.length -1)
 
     if (ataqueAleatorio == 0 || ataqueAleatorio ==1){
         ataqueEnemigo.push("FUEGO")
@@ -357,10 +414,10 @@ function combate(){
 }
 
 function revisarVictorias(){
-    if (victoriasJugador == victoriasEnemigo){
+    if (victoriasJugador === victoriasEnemigo){
         crearMensajeFinal ("ESTO FUE UN EMPATE 😒")
     } else if (victoriasJugador > victoriasEnemigo){
-        crearMensajeFinal ("FELICITACIONES GANASTE 😁")    
+        crearMensajeFinal ("FELICITACIONES! GANASTE 😁")    
     } else {
         crearMensajeFinal("LO SIENTO PERDISTE 🤦‍♂️")
     }
@@ -368,11 +425,11 @@ function revisarVictorias(){
 
 function crearMensaje(resultado){
   
-    let notificacion = document.createElement("p")
+    // let notificacion = document.createElement("p")
     let nuevoAtaqueDelJugador = document.createElement("p")
     let nuevoAtaqueDeEnemigo = document.createElement("p")
     
-    notificacion.innerHTML = resultado
+    sectionMensajes.innerHTML = resultado
     nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador
     nuevoAtaqueDeEnemigo.innerHTML = indexAtaqueEnemigo
   
@@ -423,6 +480,17 @@ function pintarCanvas() {
     CalipepoEnemigo.pintarMokepon()
     RatigueyaEnemigo.pintarMokepon()
     LangostelvisEnemigo.pintarMokepon()
+    TucapalmaEnemigo.pintarMokepon()
+    PydosEnemigo.pintarMokepon()
+    if (mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0){
+        revisarColision(HipodogeEnemigo)
+        revisarColision(CalipepoEnemigo)
+        revisarColision(RatigueyaEnemigo)
+        revisarColision(LangostelvisEnemigo)
+        revisarColision(TucapalmaEnemigo)
+        revisarColision(PydosEnemigo)
+        
+    }
 
 }
 
@@ -468,8 +536,7 @@ function sePresionoUnaTecla(event) {
 }
 
 function iniciarMapa () {
-    mapa.width = 320
-    mapa.height = 240
+   
     mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
     intervalo = setInterval(pintarCanvas, 50)
 
@@ -485,5 +552,36 @@ function obtenerObjetoMascota() {
         }
         
     }
+}
+
+function revisarColision(enemigo) {
+    const arribaEnemigo = enemigo.y
+    const abajoEnemigo = enemigo.y + enemigo.alto
+    const derechaEnemigo = enemigo.x + enemigo.ancho
+    const izquierdaEnemigo = enemigo.x 
+
+    const arribaMascota = 
+        mascotaJugadorObjeto.y
+    const abajoMascota = 
+        mascotaJugadorObjeto.y + mascotaJugadorObjeto.alto
+    const derechaMascota = 
+        mascotaJugadorObjeto.x + mascotaJugadorObjeto.ancho
+    const izquierdaMascota= 
+        mascotaJugadorObjeto.x 
+
+    if (abajoMascota < arribaEnemigo ||
+        arribaMascota > abajoEnemigo ||
+        derechaMascota < izquierdaEnemigo ||
+        izquierdaMascota > derechaEnemigo
+    ) {
+        return
+    }
+    detenerMovimiento()
+    clearInterval(intervalo)
+    console.log("se detecto una colision");
+    sectionSeleccionarAtaque.style.display = "flex"
+    sectionVerMapa.style.display = "none"
+    seleccionarMascotaEnemigo(enemigo)
+    
 }
 window.addEventListener("load", iniciarJuego)

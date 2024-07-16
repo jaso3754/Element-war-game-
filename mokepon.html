@@ -8,6 +8,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@300&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
 
     <body id="principal">
@@ -30,13 +31,14 @@
         </section>
 
     <section id="ver-mapa">
-        <h1 class="titulo"> recorre el mapa con tu mokepon 🔥 💧 ☘️ </h1>
+        <h2 class="subtitulo"> recorre el mapa con tu mokepon 🔥 💧 ☘️ </h2>
         <canvas id="mapa"></canvas>
         <button onmouseup="detenerMovimiento()"  onmousedown="moverArriba()">Arriba</button>
-        <button onmouseup="detenerMovimiento()"  onmousedown="moverIzquierda()">Izquierda</button>
-        <button onmouseup="detenerMovimiento()"  onmousedown="moverAbajo()">Abajo</button>
-        <button onmouseup="detenerMovimiento()"  onmousedown="moverDerecha()">Derecha</button>
-        
+        <div>
+            <button onmouseup="detenerMovimiento()"  onmousedown="moverIzquierda()">Izquierda</button>
+            <button onmouseup="detenerMovimiento()"  onmousedown="moverAbajo()">Abajo</button>
+            <button onmouseup="detenerMovimiento()"  onmousedown="moverDerecha()">Derecha</button>
+        </div>
     </section>
    
        
@@ -51,7 +53,7 @@
             </div>
 
             <div id="mensajes">
-                <p id="resultado">just do it</p>
+                <p id="resultado">Good Luck</p>
                     
                 <section id="reiniciar"> 
                   <button id="boton-reiniciar"> Reiniciar </button>
