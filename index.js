@@ -1,4 +1,4 @@
-const express = require("express")
+const express = require ("express")
 const cors = require ("cors")
 
 
@@ -41,7 +41,7 @@ app.post("/mokepon/:jugadorId", (req, res) => {
     const nombre = req.body.mokepon || ""
     const mokepon = new Mokepon(nombre)
     
-    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.Id)
+    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
 
     if (jugadorIndex >= 0) {
         jugadores[jugadorIndex].asignarMokepon(mokepon)

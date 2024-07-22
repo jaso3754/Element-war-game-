@@ -266,6 +266,7 @@ function unirseAlJuego(){
             }
         })
 }
+
 function seleccionarMascotaJugador() {
     
     sectionSeleccionarMascota.style.display = "none"
@@ -300,10 +301,10 @@ function seleccionarMascotaJugador() {
 }
 
 function seleccionarMokepon(mascotaJugador) {
-    fetch(`http://localhost:8080/mokepon/${jugadorId}`,{
+    fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
         method: "post",
         headers: {
-            "content-Type": "aplication/json"
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({
             mokepon: mascotaJugador
