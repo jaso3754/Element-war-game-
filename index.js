@@ -88,11 +88,19 @@ app.post("/mokepon/:jugadorId/ataques", (req, res) => {
     const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
 
     if (jugadorIndex >= 0) {
-        jugadores[jugadorIndex].asignarAtaques(mokepon)
+        jugadores[jugadorIndex].asignarAtaques(ataques)
     }
 
    
     res.end()
+})
+
+app.get("/mokepon/:jugadorId/ataques", (req, res) => {
+    const jugadorId = req.params.jugadorId || ""
+    const jugador= jugadores.find((jugador) => jugador.id === jugadorId)
+    res.send({
+        ataques: jugador.ataques || []
+    })
 })
 
 app.listen(8080, () => {

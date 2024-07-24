@@ -24,6 +24,7 @@ const sectionVerMapa = document.getElementById("ver-mapa")
 const mapa = document.getElementById("mapa")
 
 let jugadorId = null
+let enemigoId = null
 let mokepones =[]
 let mokeponesEnemigos = []
 let ataqueJugador = []
@@ -216,9 +217,6 @@ function unirseAlJuego(){
 }
 
 function seleccionarMascotaJugador() {
-    
-    sectionSeleccionarMascota.style.display = "none"
-
     if (inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id
         mascotaJugador = inputHipodoge.id
@@ -238,8 +236,11 @@ function seleccionarMascotaJugador() {
         spanMascotaJugador.innerHTML = inputPydos.id
         mascotaJugador = inputPydos.id
     } else {
-        alert=("selecciona una mascota")
+        alert("selecciona una mascota")
+        return
     }
+
+    sectionSeleccionarMascota.style.display = "none"
 
     seleccionarMokepon(mascotaJugador)
     extraerAtaques(mascotaJugador)
@@ -331,6 +332,23 @@ function enviarAtaques() {
             ataques: ataqueJugador
         })
     })
+    intervalo = setInterval(obtenerAtaques, 50)
+}
+
+function obtenerAtaques() {
+    fetch(`http://localhost:8080/mokepon/${enemigoId}/ataques`)
+    .then(function(res) {
+        if (res.ok) {
+            res.json()
+                .then(function ({ ataques }) {
+                    if (ataques.length === 5) {
+                        ataqueEnemigo = ataques
+                        combate()
+                    }
+                })
+            
+        }
+    }) 
 }
 
 function seleccionarMascotaEnemigo(enemigo){
@@ -371,6 +389,7 @@ function indexAmbosOponentes(jugador, enemigo) {
 
 
 function combate(){
+    clearInterval(intervalo)
 
     for (let index = 0; index < ataqueJugador.length; index++) {
         if (ataqueJugador[index] === ataqueEnemigo[index] ){
@@ -497,17 +516,17 @@ function enviarPosicion(x, y){
                         let mokeponEnemigo = null
                         const mokeponNombre = enemigo.mokepon.nombre || ""
                         if (mokeponNombre === "Hipodoge") {
-                            mokeponEnemigo = new Mokepon('Hipodoge', 'img/hipodoge.webp', 5, "./img/hipodogeFm.png")
+                            mokeponEnemigo = new Mokepon('Hipodoge', 'img/hipodoge.webp', 5, "./img/hipodogeFm.png", enemigo.id)
                         } else if (mokeponNombre === "CaLipepo") {
-                            mokeponEnemigo = new Mokepon('Calipepo', 'img/calipepo.webp', 5, "./img/calipepoFm.png")
+                            mokeponEnemigo = new Mokepon('Calipepo', 'img/calipepo.webp', 5, "./img/calipepoFm.png", enemigo.id)
                         } else if (mokeponNombre === "Ratigueya") {
-                            mokeponEnemigo = new Mokepon('Ratigueya', 'img/ratigueya.webp', 5, "./img/ratigueyaFm.png")
+                            mokeponEnemigo = new Mokepon('Ratigueya', 'img/ratigueya.webp', 5, "./img/ratigueyaFm.png", enemigo.id)
                         } else if (mokeponNombre === "Langostelvis") {
-                            mokeponEnemigo = new Mokepon('Langostelvis', 'img/langostelvis.png', 5, "./img/langostelvisFm.png")
+                            mokeponEnemigo = new Mokepon('Langostelvis', 'img/langostelvis.png', 5, "./img/langostelvisFm.png", enemigo.id)
                         } else if (mokeponNombre === "Tucapalma") {
-                            mokeponEnemigo = new Mokepon('Tucapalma', 'img/tucapalma.png', 5, "./img/tucapalmaFm.png")
+                            mokeponEnemigo = new Mokepon('Tucapalma', 'img/tucapalma.png', 5, "./img/tucapalmaFm.png", enemigo.id)
                         } else if (mokeponNombre === "Pydos"){
-                            mokeponEnemigo = new Mokepon('Pydos', 'img/pydos.webp', 5, "./img/pydosFm.png")
+                            mokeponEnemigo = new Mokepon('Pydos', 'img/pydos.webp', 5, "./img/pydosFm.png", enemigo.id)
                         }
 
                         mokeponEnemigo.x = enemigo.x
@@ -607,6 +626,8 @@ function revisarColision(enemigo) {
     detenerMovimiento()
     clearInterval(intervalo)
     console.log("se detecto una colision");
+
+    enemigoId = enemigo.id
     sectionSeleccionarAtaque.style.display = "flex"
     sectionVerMapa.style.display = "none"
     seleccionarMascotaEnemigo(enemigo)
